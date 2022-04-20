@@ -1,4 +1,4 @@
-TG - Minor Degree Article
+TG - Major Degree Article
 
 Wilkommen, you're seeing public repository of my work on energy price forecasting.
 
