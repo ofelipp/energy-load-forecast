@@ -1,0 +1,6 @@
+def leitura_database():
+    ...
+
+
+def exporta_database():
+    ...

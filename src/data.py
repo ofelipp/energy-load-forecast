@@ -1,0 +1,3 @@
+def trata_numero():
+    ...
+

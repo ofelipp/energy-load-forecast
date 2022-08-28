@@ -1,0 +1,6 @@
+/data/
+/logs/
+.vscode/
+.pytest_cache/
+/venv/
+__pycache__*

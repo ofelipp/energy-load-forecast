@@ -1,0 +1,6 @@
+def cria_base_treino():
+    ...
+
+
+def calcula_erro_treino():
+    ...
