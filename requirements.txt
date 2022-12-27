@@ -3,3 +3,15 @@ numpy
 pytest
 pytest-env
 pytest-cov
+flake8
+bandit
+openpyxl
+fastparquet
+matplotlib
+seaborn
+tensorflow
+scikit-learn
+statsmodels
+xgboost
+ipykernel
+pyephem
