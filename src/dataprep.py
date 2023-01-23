@@ -40,6 +40,36 @@ class DataprepPipeline():
 
 # Auxiliar Functions
 
+def truncate_date_range(
+    date_range: pd.date_range
+) -> pd.date_range:
+
+    ideal_date_range = pd.date_range(
+        start=date_range.min().normalize(),
+        end=date_range.max().normalize(),
+        freq='H', inclusive='left'
+    )
+
+    if not date_range.equals(ideal_date_range):
+
+        diff_begin = date_range[0] != ideal_date_range[0]
+        if diff_begin:
+            _rm_incomplete_day = date_range >= date_range.normalize().shift(1, 'D')[0]
+            print(f'Removing {(~_rm_incomplete_day).sum()} from beggining')
+
+            date_range = date_range[_rm_incomplete_day]
+
+        diff_end = date_range[-1] != ideal_date_range[-1]
+        if diff_end:
+            _rm_incomplete_day = date_range < date_range.normalize()[-1]
+            print(f'Removing {(~_rm_incomplete_day).sum()} from ending')
+
+            date_range = date_range[_rm_incomplete_day]
+
+        print(f'Final Date Range: {date_range[0]} - {date_range[-1]}')
+        return date_range
+
+
 def ibge_datetime(serie: pd.Series, input_format: 'str') -> pd.Series:
 
     """
