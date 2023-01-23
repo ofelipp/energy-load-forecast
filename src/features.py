@@ -99,16 +99,32 @@ def datetime_variables(
     series_datetime = pd.to_datetime(series_datetime, format=datetime_format)
 
     df_datetime = pd.DataFrame()
+    int_vars = []
 
-    # Creating time variables
+    # Date variables
     df_datetime["Year"] = series_datetime.dt.strftime("%Y")
     df_datetime["Month"] = series_datetime.dt.strftime("%m")
     df_datetime["Day"] = series_datetime.dt.strftime("%d")
+    df_datetime["InverseDay"] = None # TODO
+    int_vars += ["Year", "Month", "Day"]
+
+    # Time variables
     df_datetime["Hour"] = series_datetime.dt.strftime("%H")
     df_datetime["Minute"] = series_datetime.dt.strftime("%M")
+    int_vars += ["Hour", "Minute"]
+
+    # Week
+    df_datetime["WeekDay"] = series_datetime.dt.dayofweek()
+    df_datetime["WeekMonth"] = None # TODO
+    df_datetime["WeekYear"] = series_datetime.dt.isocalendar().week
+    int_vars += ["WeekDay", "WeekMonth", "WeekYear"]
+
+    # Year variable
+    df_datetime["YearDay"] = series_datetime.dt.dayofyear()
+    int_vars += ["YearDay"]
 
     # Transforming into integers
-    for col in ["Year", "Month", "Day", "Hour", "Minute"]:
+    for col in int_vars:
         df_datetime[col] = df_datetime[col].astype(int)
 
     return df_datetime
