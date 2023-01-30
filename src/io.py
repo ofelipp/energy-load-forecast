@@ -6,8 +6,11 @@ and excel files and export the final product into
 """
 
 import json
-from os import walk
+import pickle
+import os
+import src.config as config
 
+config.init()
 
 def json_to_dict(path: str) -> dict:
 
@@ -23,7 +26,7 @@ def list_dir_files(path: str) -> list:
 
     all_files = []
 
-    for root, dirs, files in walk(path):
+    for root, dirs, files in os.walk(path):
 
         # Reading only subdirectories
         if len(dirs) == 0:
@@ -33,9 +36,21 @@ def list_dir_files(path: str) -> list:
     return all_files
 
 
-def leitura_database():
-    ...
+def save_artfact(model_to_save, model_name: str):
+
+    _filepath = f"{config.PATHS['MODEL_ARTFACTS']}{model_name}.pickle"
+
+    with open(_filepath, 'wb') as output_model:
+        pickle.dump(model_to_save, output_model)
+
+    assert os.path.isfile(_filepath) is True, \
+        f'Impossible to save {model_name} artfact not founded in {filepath}'
 
 
-def exporta_database():
-    ...
+def load_artfact(filepath):
+
+    assert os.path.isfile(filepath) is True, \
+        f'Artfact not founded in {filepath}'
+
+    with open(filepath, 'rb') as input_model:
+        return pickle.load(input_model)
