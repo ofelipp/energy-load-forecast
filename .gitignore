@@ -1,5 +1,11 @@
-/data/
-/logs/
+/artifact/
+/data/sor/
+/data/sot/
+/data/spec/
+/doc/
+/log/
+/tg_venv/
+*.ipynb
 .vscode/
 .pytest_cache/
 /venv/
